@@ -65,22 +65,6 @@ CREATE TABLE IF NOT EXISTS `cat_sucursal` (
 
 -- La exportación de datos fue deseleccionada.
 
--- Volcando estructura para tabla inventario.comentarios
-CREATE TABLE IF NOT EXISTS `comentarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comentario` varchar(100) NOT NULL,
-  `producto_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `fk_producto` (`producto_id`),
-  KEY `fk_usuario_comentarios` (`usuario_id`),
-  CONSTRAINT `fk_producto` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`),
-  CONSTRAINT `fk_usuario_comentarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='se registras los comentarios de los productos';
-
--- La exportación de datos fue deseleccionada.
-
 -- Volcando estructura para tabla inventario.productos
 CREATE TABLE IF NOT EXISTS `productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -91,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `precio` int(5) NOT NULL,
   `fecha_compra` datetime NOT NULL,
   `estatus_id` int(11) NOT NULL DEFAULT 1,
+  `comentarios` varchar(100) DEFAULT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_moficacion` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `usuario_id` int(11) NOT NULL,
@@ -103,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   CONSTRAINT `fk_estatus` FOREIGN KEY (`estatus_id`) REFERENCES `cat_estatus` (`id`),
   CONSTRAINT `fk_sucursal` FOREIGN KEY (`sucursal_id`) REFERENCES `cat_sucursal` (`id`),
   CONSTRAINT `fk_usuario_productos` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='registro de productos';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='registro de productos';
 
 -- La exportación de datos fue deseleccionada.
 
@@ -121,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   UNIQUE KEY `usuario` (`usuario`),
   KEY `fk_perfil` (`perfil_id`) USING BTREE,
   CONSTRAINT `fk_perfil` FOREIGN KEY (`perfil_id`) REFERENCES `cat_perfil` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='Usuarios registrados en el sistema ';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Usuarios registrados en el sistema ';
 
 -- La exportación de datos fue deseleccionada.
 
